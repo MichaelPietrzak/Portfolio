@@ -9,7 +9,7 @@ const plumber      = require('gulp-plumber');
 gulp.task('browser-sync', () => {
     browserSync.init({
         server: {
-            baseDir: 'public',
+            baseDir: 'docs',
             // index: './index.html'
         },
         open: false,
@@ -30,14 +30,14 @@ gulp.task('sass', () => {
         .pipe(sass())
         .pipe(autoprefixer())
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest('./public/css'))
+        .pipe(gulp.dest('./docs/css'))
         .pipe(browserSync.reload({
             stream: true
         }));
 });
 
 gulp.task('js', () => {
-    const dst = 'public/js/';
+    const dst = 'docs/js/';
 
     return gulp.src('./src/js/app.js')
         .pipe(plumber())
@@ -52,7 +52,7 @@ gulp.task('html', () => {
         base: 'src/html/'
     })
     .pipe(plumber())
-    .pipe(gulp.dest('./public/'));
+    .pipe(gulp.dest('./docs/'));
 });
 
 
