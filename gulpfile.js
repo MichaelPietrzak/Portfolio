@@ -24,13 +24,13 @@ gulp.task('browser-sync', () => {
 });
 
 gulp.task('sass', () => {
-    return gulp.src('docs/sass/main.scss')
+    return gulp.src('./sass/main.scss')
         .pipe(sourcemaps.init())
         .pipe(plumber())
         .pipe(sass())
         .pipe(autoprefixer())
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest('public/css/main.css'))
+        .pipe(gulp.dest('./public/css/main.css'))
         .pipe(browserSync.reload({
             stream: true
         }));
