@@ -9,7 +9,7 @@ const plumber      = require('gulp-plumber');
 gulp.task('browser-sync', () => {
     browserSync.init({
         server: {
-            baseDir: 'docs',
+            baseDir: 'public',
             // index: './index.html'
         },
         open: false,
@@ -17,29 +17,29 @@ gulp.task('browser-sync', () => {
         logLevel: 'debug'
     });
 
-    gulp.watch('src/sass/**/*.scss', ['sass']);
-    gulp.watch('src/js/**/*.*', ['js']);
-    gulp.watch(['./src/html/**/*.html'], ['html'])
+    gulp.watch('docs/sass/**/*.scss', ['sass']);
+    gulp.watch('docs/js/**/*.*', ['js']);
+    gulp.watch(['./docs/**/*.html'], ['html'])
         .on('change', browserSync.reload);
 });
 
 gulp.task('sass', () => {
-    return gulp.src('./src/sass/main.scss')
+    return gulp.src('./docs/sass/main.scss')
         .pipe(sourcemaps.init())
         .pipe(plumber())
         .pipe(sass())
         .pipe(autoprefixer())
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest('./docs/css'))
+        .pipe(gulp.dest('./public/css'))
         .pipe(browserSync.reload({
             stream: true
         }));
 });
 
 gulp.task('js', () => {
-    const dst = 'docs/js/';
+    const dst = 'public/js/';
 
-    return gulp.src('./src/js/app.js')
+    return gulp.src('./docs/js/app.js')
         .pipe(plumber())
         .pipe(gulp.dest(dst))
         .pipe(browserSync.reload({
@@ -48,11 +48,11 @@ gulp.task('js', () => {
 });
 
 gulp.task('html', () => {
-    gulp.src(['src/html/*.html'], {
-        base: 'src/html/'
+    gulp.src(['docs/*.html'], {
+        base: 'docs/'
     })
     .pipe(plumber())
-    .pipe(gulp.dest('./docs/'));
+    .pipe(gulp.dest('./public/'));
 });
 
 
